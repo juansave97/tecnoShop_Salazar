@@ -1,0 +1,11 @@
+.Navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #7A86B6;
+}
+
+button{ 
+    background-color: #A8A4CE;
+    font-style: italic;
+}
