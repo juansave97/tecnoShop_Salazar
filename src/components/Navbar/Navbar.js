@@ -1,5 +1,6 @@
 
 import './Navbar.css';
+import CardWidget from '../CardWidget/CardWidget'
 
 
 const Navbar = () => { 
@@ -14,6 +15,8 @@ const Navbar = () => {
                     <button>Nosotros</button>
                     <button>Trabaja con nosotros</button>
                 </div>
+                <CardWidget/>
+                
             </div>
         </nav>
     )
