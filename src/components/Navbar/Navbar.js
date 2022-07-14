@@ -1,4 +1,3 @@
-
 import './Navbar.css';
 import CardWidget from '../CardWidget/CardWidget'
 
@@ -8,12 +7,12 @@ const Navbar = () => {
         <nav>
             <div className='Navbar'>
                 <div className='title'>
-                    TECNOSHOP
+                    <img src="images\logo.png" alt="logo" className='logo'/>
                 </div>
                 <div className='boton'>
-                    <button>Productos</button>
-                    <button>Nosotros</button>
-                    <button>Trabaja con nosotros</button>
+                    <button className='space'>Productos</button>
+                    <button className='space'>Nosotros</button>
+                    <button className='space'>Trabaja con nosotros</button>
                 </div>
                 <CardWidget/>
                 

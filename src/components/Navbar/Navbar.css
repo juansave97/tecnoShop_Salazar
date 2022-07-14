@@ -2,10 +2,19 @@
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    background-color: #7A86B6;
+    background-color: white;
 }
 
-button{ 
-    background-color: #A8A4CE;
+.space{ 
+    background-color: #DFBB9D;
     font-style: italic;
+    margin-right: 20px;
+    border-radius: 20px;
+    border: none;
+    
+    
+}
+
+.logo {
+    width: auto;
 }
