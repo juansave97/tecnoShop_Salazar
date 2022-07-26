@@ -9,7 +9,7 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 function App() {
   const [show, setShow] = useState(true)
 
-  const handleOnAdd = (quantity) => {
+  const handleOnAdd= (quantity) => {
     console.log('cantidad de items agregados', quantity)
   }
 
@@ -17,8 +17,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Navbar/>
-        <ItemCount show={show} stock={35} initial={1} onAdd={handleOnAdd}/>
-        <ItemListContainer greeting=" Welcome TecnoShopers"/>
+        {/* <ItemCount show={show} stock={35} initial={1} onAdd={handleOnAdd}/> */}
+        <ItemListContainer show={show} setShow={setShow} greeting="Hi TecnoShopers"/>
       </header>
     </div>
   );
