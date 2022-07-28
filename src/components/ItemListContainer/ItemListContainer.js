@@ -24,10 +24,10 @@ const ItemListContainer = ({ greeting, setShow, show}) => {
     }
 
     return (
-        <>
+        <div>
             <h1 className='saludo'>{greeting}</h1>
             <ItemList products={products}/>
-        </>
+        </div>
     )
 }
 
