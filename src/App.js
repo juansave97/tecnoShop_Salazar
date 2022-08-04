@@ -21,9 +21,9 @@ function App() {
         <BrowserRouter>
           <Navbar/>
           <Routes>
-            <Route path='/' element={<ItemListContainer greeting="Todos nuestros productos" />}/>
-            <Route path='/category/:categoryId' element={<ItemListContainer greeting="Estamos filtrando" />}/>
-            <Route path='/detail/:productId' element={<ItemDetailContainer />}/>
+            <Route path='/' element={<ItemListContainer greeting="Hi TecnoShopers " />}/>
+            <Route path='/category/:categoryId' element={<ItemListContainer greeting="Artículos Filtrados" />}/>
+            <Route path='/detail/:productId' element={<ItemDetailContainer greeting="Cargando Detalles"/>}/>
           </Routes>
         </BrowserRouter>
       </header>
