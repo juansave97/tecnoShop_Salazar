@@ -5,6 +5,8 @@ import Navbar from './components/Navbar/Navbar';
 import ItemCount from './/components/itemCount/itemCount'
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 
 function App() {
   const [show, setShow] = useState(true)
@@ -16,10 +18,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Navbar/>
-        {/* <ItemCount show={show} stock={35} initial={1} onAdd={handleOnAdd}/> */}
-        <ItemListContainer show={show} setShow={setShow} greeting="Hi TecnoShopers"/>
-        <ItemDetailContainer/>
+        <BrowserRouter>
+          <Navbar/>
+          <Routes>
+            <Route path='/' element={<ItemListContainer greeting="Todos nuestros productos" />}/>
+            <Route path='/category/:categoryId' element={<ItemListContainer greeting="Estamos filtrando" />}/>
+            <Route path='/detail/:productId' element={<ItemDetailContainer />}/>
+          </Routes>
+        </BrowserRouter>
       </header>
       <body></body>
     </div>
