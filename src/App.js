@@ -27,7 +27,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </header>
-      <body></body>
+      {/* <body></body> */}
     </div>
   );
 }
