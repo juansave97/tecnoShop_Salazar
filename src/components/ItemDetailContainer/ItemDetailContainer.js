@@ -4,7 +4,7 @@ import { getProductById } from "../../asyncMock"
 import ItemDetail from "../ItemDetail/ItemDetail"
 import '../ItemDetailContainer/ItemDetailContainer.css'
 
-const ItemDetailContainer = () => {
+const ItemDetailContainer = ({ addItem }) => {
     const [product, setProduct] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -12,7 +12,6 @@ const ItemDetailContainer = () => {
 
     useEffect(() => {
         getProductById(productId).then(response => {
-            console.log("response", response)
             setProduct(response)
         }).catch(error => {
             console.log(error)
@@ -27,7 +26,7 @@ const ItemDetailContainer = () => {
     }
 
     return (
-        <ItemDetail product={product}/>
+        <ItemDetail {...product} addItem={addItem}/>
     )
 }
 

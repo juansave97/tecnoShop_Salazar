@@ -27,8 +27,10 @@ export const CartContextProvider = ({ children }) => {
 
     const getQuantity = () => {
         let accu = 0
+        console.log('getQuantity, cart', cart);
         cart.forEach(prod => {
             accu += prod.quantity
+            
         })
 
         return accu
