@@ -1,11 +1,18 @@
-import './CardWidget.css'  
+import './CardWidget.css'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { CartContext } from '../../Context/CartContext'  
 
 const CardWidget = () => {
+    const { getQuantity } = useContext(CartContext)
+
+    const quantity = getQuantity()
+
     return (
-        <div className='cartt'>
+        <Link to='/cart'  className='cartt'>
             <img src="images\cart-svgrepo-com.svg" alt="cart"/> 
-            5
-        </div>
+            {quantity}
+        </Link>
     )
 }
 

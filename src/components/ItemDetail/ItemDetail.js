@@ -1,68 +1,26 @@
 
-import { useState } from 'react'
+import { useState, useContext} from 'react'
 import ItemCount from '../itemCount/itemCount'
 import '../ItemDetail/ItemDetail.css'
 import { Link } from 'react-router-dom'
-
-// const InputCount = ({onConfirm, stock, initial=1}) => {
-//     const [count, setCount] = useState(initial)
-
-//     const handleChange = (e) => {
-//         if (e.target.value <= stock){
-//             setCount(e.target.value)
-//         }
-
-//     }
-
-//     return(
-//         <div>
-//             <input type='number' onChange={handleChange} value={count}/>
-//             <button onClick={() => onConfirm(count)}>Agregar al Carrito</button>
-//         </div>
-//     )
-// }
-
-// const ButtonCount = ({ onConfirm, stock, initial = 1 }) => {
-    
-//     // const [inputType, setInputType] = useState('input')
-//     const [count, setCount] = useState(initial)
-
-//     const increment = () => {
-//         console.log('gggggg')
-//         if(count < stock) {
-//             setCount(count + 1)
-//         }
-
-//     }
-
-//     const decrement = () => {
-//         console.log('olllllllll')
-//         console.log(count)
-//         setCount(count - 1)
-
-//     }
-
-//     return (
-//         <div>
-//             <p>{count}</p>
-//             <button onClick={decrement}>-</button>
-//             <button onClick={increment}>+</button>
-//             <button onClick={() => onConfirm(count)}>Agregar al carrito</button>
-//         </div>
-//     )
-// }
+import { CartContext } from '../../Context/CartContext'
 
 const ItemDetail = ({ product }) => {
     const [quantity, setQuantity] = useState(0)
 
+    const { addItem, getProductQuantity } = useContext(CartContext)
+
+    const quantityAdded = getProductQuantity(product.id)
+
 
     const handleOnAdd = (quantity) => {
         setQuantity(quantity)
+        addItem({product})
     }
     return (
         <div className='cardres'>
             <div>
-                <img  className='imgPro1' src={product.img} />
+                <img  className='imgPro1' src={product.img}/>
             </div>
             <div className='container'>
                 <h2>{product.name}</h2>
@@ -71,7 +29,7 @@ const ItemDetail = ({ product }) => {
                 <p>{product.description}</p>
                 <h3>{'$'+product.price}</h3>
                 <footer>
-                    { quantity > 0 ? <Link  className='link' to='/cart'> <button className='botonCompra'>Ir al carrito</button></Link> : <ItemCount stock={product.stock} onAdd={handleOnAdd} />}
+                    { quantity > 0 ? <Link  className='link' to='/cart'> <button className='botonCompra'>Ir al carrito</button></Link> : <ItemCount stock={product.stock} onAdd={handleOnAdd} initial={quantityAdded}/>}
                 </footer>
             </div>
         </div>  
