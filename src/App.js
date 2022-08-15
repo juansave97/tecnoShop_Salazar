@@ -2,11 +2,14 @@ import './App.css';
 import './components/Navbar/Navbar';
 import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar';
-import ItemCount from './/components/itemCount/itemCount'
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import Cart from './components/Cart/Cart';
+import { NotificationProvider} from './notification/Notification'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartContextProvider } from './Context/CartContext'
+
+
 
 
 
@@ -20,17 +23,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <CartContextProvider>
-          <BrowserRouter>
-            <Navbar/>
-            <Routes>
-              <Route path='/' element={<ItemListContainer greeting="Hi TecnoShopers " />}/>
-              <Route path='/category/:categoryId' element={<ItemListContainer greeting="Artículos Filtrados" />}/>
-              <Route path='/detail/:productId' element={<ItemDetailContainer greeting="Cargando Detalles"/>}/>
-              <Route path='/cart' element={<h1>CART</h1>}/>
-            </Routes>
-          </BrowserRouter>
-        </CartContextProvider>
+      <NotificationProvider>
+          <CartContextProvider>
+            <BrowserRouter>
+              <Navbar/>
+              <Routes>
+                <Route path='/' element={<ItemListContainer greeting="Hi TecnoShopers " />}/>
+                <Route path='/category/:categoryId' element={<ItemListContainer greeting="Artículos Filtrados" />}/>
+                <Route path='/detail/:productId' element={<ItemDetailContainer greeting="Cargando Detalles"/>}/>
+                <Route path='/cart' element={<Cart/>}/>
+                <Route path='*' element={<h1>PAGE NOT FOUND 404</h1>} />
+              </Routes>
+            </BrowserRouter>
+          </CartContextProvider>
+        </NotificationProvider>
       </header>
     </div>
   );
