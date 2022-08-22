@@ -10,10 +10,10 @@ export const CartContextProvider = ({ children }) => {
     const countRendersRef = useRef(0)
 
     useEffect(() => {
-        console.log(countRendersRef.current)
+        // console.log(countRendersRef.current)
         if(countRendersRef.current > 0 ) {
-            console.log('despues del primer render')
-            console.log(countRendersRef.current)
+            // console.log('despues del primer render')
+            // console.log(countRendersRef.current)
             let totalQuantity = 0;
             let total = 0
             cart.forEach(prod => {
@@ -24,7 +24,7 @@ export const CartContextProvider = ({ children }) => {
             setTotalQuantity(totalQuantity)
             setTotal(total)
         } else {
-            console.log('primer render')
+            // console.log('primer render')
         }
         countRendersRef.current++
     }, [cart])
@@ -51,7 +51,7 @@ export const CartContextProvider = ({ children }) => {
 
     const getQuantity = () => {
         let accu = 0
-        console.log('getQuantity, cart', cart);
+        // console.log('getQuantity, cart', cart);
         cart.forEach(prod => {
             accu += prod.quantity
             
