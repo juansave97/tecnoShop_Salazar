@@ -1,19 +1,22 @@
-import { useContext } from "react"
+import { useContext, useState} from "react"
 import { CartContext } from '../../Context/CartContext'
 import { addDoc, collection, Timestamp,  getDocs, query, where, documentId, writeBatch } from 'firebase/firestore'
 import { db } from '../../service/firebase/index'
 
 
 const Checkout = () => {
-    const { cart, clearCart, total } = useContext(CartContext)  
+    const { cart, clearCart, total } = useContext(CartContext)
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState();
+    const [mail, setMail] = useState("");  
 
     const createOrder = async () => {
         try {
             const objOrder = {
                 buyer: {
-                    name: 'Juan Perez',
-                    phone: '123456789',
-                    email: 'juan@mail.com'
+                    name: name,
+                    phone: phone,
+                    emai: mail
                 },
                 items: cart,
                 total,
@@ -65,9 +68,20 @@ const Checkout = () => {
 
     return (
         <div>
-            <h1>Checkout</h1>
-            <h2>Formulario</h2>
-            <button className="Button" onClick={createOrder}>Generar Orden</button>
+            <h2>Complete los campos para poder terminar la compra</h2>
+            <form>
+                <label>Nombre: 
+                    <input type="text" onChange={(e) => {setName(e.target.value);}}/>
+                </label>
+                <label>Email:
+                    <input type="text" onChange={(e) => {setMail(e.target.value);}}/>
+                </label>
+                <label>Telefono:
+                    <input type="number" onChange={(e) => {setPhone(e.target.value);}}/>
+                </label>
+            </form>
+            <button className="ButtonOpcion" onClick={createOrder}>Comprar</button>
+
         </div>
     )
 }
