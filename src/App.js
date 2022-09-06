@@ -29,7 +29,7 @@ function App() {
             <BrowserRouter>
               <Navbar/>
               <Routes>
-                <Route path='/' element={<ItemListContainer greeting="Hi TecnoShopers " />}/>
+                <Route path='/' element={<ItemListContainer greeting="Bienvenid@ a tu tienda online de Tecnología" />}/>
                 <Route path='/category/:categoryId' element={<ItemListContainer greeting="Artículos Filtrados" />}/>
                 <Route path='/detail/:productId' element={<ItemDetailContainer greeting="Cargando Detalles"/>}/>
                 <Route path='/cart' element={<Cart/>}/>

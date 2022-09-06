@@ -1,5 +1,8 @@
 .cartt {
     display: flex;
+    text-decoration: none;
+    color: grey;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 img {

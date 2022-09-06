@@ -6,16 +6,13 @@
 }
 
 .space{ 
-    background-color: #DFBB9D;
     padding: 7px;
     font-style: italic;
-    margin-right: 20px;
-    border-radius: 20px;
-    border: none;
+    font-family: 'Rajdhani', sans-serif;
+    margin-right: 40px;
+    font-size: 23px;
     color: black;
-    text-decoration: none;
-    
-    
+    text-decoration: none;   
 }
 
 .logo {

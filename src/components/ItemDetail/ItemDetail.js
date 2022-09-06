@@ -10,7 +10,7 @@ const ItemDetail = ({ id, name, img, description, price, stock }) => {
 
     const { addItem, getProductQuantity } = useContext(CartContext)
 
-    const quantityAdded = getProductQuantity(id)
+    const totalAddition = getProductQuantity(id)
 
     const handleOnAdd = (quantity) => {
         console.log('agregue al carrito')
@@ -30,7 +30,7 @@ const ItemDetail = ({ id, name, img, description, price, stock }) => {
                 <p>{description}</p>
                 <h3>{'$'+price}</h3>
                 <footer>
-                    { quantity > 0 ? <Link  className='link' to='/cart'> <button className='botonCompra'>Ir al carrito</button></Link> : <ItemCount stock={stock} onAdd={handleOnAdd} initial={quantityAdded}/>}
+                    { quantity > 0 ? <Link  className='link' to='/cart'> <button className='botonCompra'>Ir al carrito🛒</button></Link> : <ItemCount stock={stock} onAdd={handleOnAdd} initial={totalAddition}/>}
                 </footer>
             </div>
         </div>  

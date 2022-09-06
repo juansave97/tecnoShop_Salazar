@@ -1,10 +1,17 @@
+import '../Checkout/checkout.css'
 import { useContext, useState} from "react"
 import { CartContext } from '../../Context/CartContext'
 import { addDoc, collection, Timestamp,  getDocs, query, where, documentId, writeBatch } from 'firebase/firestore'
 import { db } from '../../service/firebase/index'
+import { Link, useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 
 const Checkout = () => {
+    const MySwal = withReactContent(Swal)
+    const navigate = useNavigate();
+
     const { cart, clearCart, total } = useContext(CartContext)
     const [name, setName] = useState("");
     const [phone, setPhone] = useState();
@@ -12,7 +19,21 @@ const Checkout = () => {
 
     const createOrder = async () => {
         try {
-            const objOrder = {
+            if (!name || !phone || !mail) {
+                MySwal.fire({
+                    title: 'Faltan datos para generar tu Orden!',
+                    icon: 'error',
+                    background: '#242323',
+                    color: '#FFFFF0',
+                  });
+            } else {
+                if (cart.length > 0) {
+                  const dataBaseRef = collection(db, 'products ')
+                  const ordersRef = collection(db, 'orders')
+                  const cartIds = cart.map(product => product.id)
+                  const withoutSrock = []
+                  const portion = writeBatch(db)
+                  const objOrder = {
                 buyer: {
                     name: name,
                     phone: phone,
@@ -22,62 +43,78 @@ const Checkout = () => {
                 total,
                 date: Timestamp.fromDate(new Date())
             }
+        
+                  const productOfCart = await getDocs(query(dataBaseRef, where(documentId(), 'in', cartIds)))
+                  const { docs } = productOfCart
+                  docs.forEach(product => {
+                    const data = product.data()
+                    const dataBaseStock = data.stock
+        
+                    const products = cart.find(doc => doc.id === product.id)
+                    const productsQuantity = products?.quantity
 
-            const ids = cart.map(prod => prod.id)
-
-            const productsRef = collection(db, 'products ')
-
-            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
-
-            const { docs } = productsAddedFromFirestore
-
-            const outOfStock = []
-
-            const batch = writeBatch(db)
-
-            docs.forEach(doc => {
-                const dataDoc = doc.data()
-                const stockDb = dataDoc.stock
-
-                const productAdded = cart.find(prod => prod.id === doc.id)
-                const prodQuaantity = productAdded?.quantity
-
-                if(stockDb >= prodQuaantity) {
-                    batch.update(doc.ref, { stock: stockDb - prodQuaantity})
-                } else {
-                    outOfStock.push({ id: doc.id, ...dataDoc})
+                    if (dataBaseStock >= productsQuantity) {
+                        portion.update(product.ref, { stock: dataBaseStock - productsQuantity })
+                      } else {
+                        withoutSrock.push({ id: product.id, ...data })
+                      }
+                    })
+                    if (withoutSrock.length === 0) {
+                      const addOrder = await addDoc(ordersRef, objOrder)
+                      const idOrder = addOrder.id
+                      portion.commit()
+                      MySwal.fire({
+                        title: '¡Muchas Gracias por tu Compra! El Id de tu compra es ' + idOrder,
+                        icon: 'success',
+                        text: 'Revisa tu Correo electronico para consultar tu factura y datos de entrega.',
+                        background: '#242323',
+                        color: '#FFFFF0'
+                      })
+                      setName('');
+                      setMail('');
+                      setPhone('');
+                      clearCart();
+                      navigate('/', { replace: true });
+                    } else {
+                      MySwal.fire({
+                        title: 'Error! Uno de los productos está fuera de Stock.',
+                        icon: 'warning',
+                        background: '#242323',
+                        color: '#FFFFF0',
+                      });
+                    }
+                  } else {
+                    MySwal.fire({
+                      title: '¡Tu carrito está vacío!',
+                      icon: 'question',
+                      text: 'revisa tus productos.',
+                      background: '#242323',
+                      color: '#FFFFF0'
+                    });
+                  }
                 }
-            })
-
-            if(outOfStock.length === 0) {
-                const orderRef = collection(db, 'orders')
-                const orderAdded = await addDoc(orderRef, objOrder)
-                batch.commit()
-                console.log(orderAdded.id)
-                clearCart()
-            } else {
-                console.log('Hay productos fuera de stock')
+              } catch (error) {
+                MySwal.fire({
+                  title: error,
+                  icon: 'error',
+                  background: '#242323',
+                  color: '#FFFFF0',
+                })
+              }
             }
-        } catch (error) {
-            console.log(error)
-        } finally {
-            console.log('se termino la ejecucion de la funcion createOrder')
-        }
-
-    }
-
+            
     return (
         <div>
-            <h2>Complete los campos para poder terminar la compra</h2>
+            <h2 className='textOfCheckout'>¡Ingresa tus datos para finalizar la compra!</h2>
             <form>
-                <label>Nombre: 
+                <label className='inputsForm'>Nombre : 
                     <input type="text" onChange={(e) => {setName(e.target.value);}}/>
                 </label>
-                <label>Email:
+                <label className='inputsForm'>Email :    . .
                     <input type="text" onChange={(e) => {setMail(e.target.value);}}/>
                 </label>
-                <label>Telefono:
-                    <input type="number" onChange={(e) => {setPhone(e.target.value);}}/>
+                <label className='inputsForm'>Teléfono .
+                    <input type="text" onChange={(e) => {setPhone(e.target.value);}}/>
                 </label>
             </form>
             <button className="ButtonOpcion" onClick={createOrder}>Comprar</button>

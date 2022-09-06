@@ -1,0 +1,22 @@
+.ButtonOpcion {
+    border: none;
+    margin-top: 20px;
+    background-color: rgb(125, 191, 125) ;
+    border-radius: 10px;
+    font-style: italic;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.inputsForm {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    font-style: italic;
+    font-family: 'Rajdhani', sans-serif;
+    border-radius: 20px;
+}
+
+.textOfCheckout{
+    margin: 30px;
+    font-family: 'Rajdhani', sans-serif;
+}
