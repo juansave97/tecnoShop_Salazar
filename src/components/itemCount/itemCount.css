@@ -1,0 +1,19 @@
+span {
+    background-color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.contador {
+    border-radius: 40px;
+    background-color: #ecd2bd;
+    border:none;
+}
+
+.countGen {
+    margin-top: 20px;
+}
+
+.product {
+    margin-bottom: 0px;
+}

@@ -1,0 +1,12 @@
+.cartt {
+    display: flex;
+    text-decoration: none;
+    color: grey;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+img {
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
